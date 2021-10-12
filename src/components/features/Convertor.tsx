@@ -33,7 +33,7 @@ export default function Convertor() {
         <select className='dropdown-list'>
         <option>USD</option>
         </select>  
-        <button onClick={()=>console.log(fetchApi)}></button>
+        {/* <button onClick={()=>console.log(fetchApi)}></button> */}
        </div>
     )
 }
