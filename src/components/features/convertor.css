@@ -2,12 +2,12 @@
     background-color: white;
 } */
 
-.container{
+.container-input-placeholder{
     display: flex;
     padding-top: 13%;
     text-align: left;
     padding-left: 10%;
-    flex-direction: column;
+    flex-direction: row ;
     
 }
 
@@ -45,4 +45,14 @@
     padding: 27px;
     padding-right: 33px;
     width: 280px;
+}
+
+.dropdown-list{
+    padding-left: 15px;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 2px solid #f3f3f3;
+}
+option{
+    background-color: #f3f3f3;
 }
