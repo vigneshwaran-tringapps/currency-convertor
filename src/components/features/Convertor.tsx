@@ -1,39 +1,42 @@
 import './convertor.css';
-import { useState,useEffect } from 'react';
-import axios from 'axios';
-import Button from '../ui/button';
 
-export default function Convertor() {
 
-  interface currency{
-       Base:string,
-       rate?:any
-  }
+export default function Convertor(props:any) {
 
-  const [rates , setRates] = useState<Array<currency>>([]);
-
-  const fetchApi = async()=>{
-    return axios.get<currency[]>("http://localhost:5000/api/rates")
-    .then(res=> {
-      setRates(res.data);
-     }   
-    );
-    
-  };
-
-  // useEffect(()=>{
-  //    console.log(rates.keys)
-  // })
-
-  
+    const {
+      currencyOptions,
+      selectedCurrency,
+      onChangeCurrency,
+      onChangeAmount,
+      amount
+    } = props
 
     return (
         <div className='container-input-placeholder'> 
-        <input type='number' name='base-val' className='input-rate'/>
-        <select className='dropdown-list'>
-        <option>USD</option>
-        </select>  
-        {/* <button onClick={()=>console.log(fetchApi)}></button> */}
+        {/* <input 
+        type='number' 
+        name='base-val' 
+        className='input-rate'
+        value={amount}
+        onChange={onChangeAmount}/>
+        <select 
+        className='dropdown-list'
+        value={SelectedCurrency} 
+        onChange={onchangeCurrency}>
+        { currencyOption.map((option:any)=>(
+          <option 
+          key={option}
+          value={option}>{option}
+          </option>
+        ))}
+        </select>   */}
+        <input type="number" className="input-rate" value={amount} onChange={onChangeAmount} />
+        <select value={selectedCurrency} onChange={onChangeCurrency} className='dropdown-list'>
+        {currencyOptions.map((option:any) => (
+          <option key={option} value={option}>{option}</option>
+        ))}
+      </select>
+      
        </div>
     )
 }
