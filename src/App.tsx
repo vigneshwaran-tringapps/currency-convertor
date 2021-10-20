@@ -4,16 +4,17 @@ import Convertor from './components/features/Convertor';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {useState, useEffect} from 'react';
 
-import { currency } from './types/types';
+import { currency,ratesValue } from './types/types';
+import axios from 'axios';
 
 
 
 function App() {
-   const BASE_URL:string = "http://localhost:5000/api/rates";
-   const [currencyOptions, setCurrencyOptions] = useState<Array<any>>([])
-   const [fromCurrency, setFromCurrency] = useState<number>()
+   const BASE_URL:string = "http://localhost:8000/api/rates";
+   const [currencyOptions, setCurrencyOptions] = useState<string[]>([])
+   const [fromCurrency, setFromCurrency] = useState<string>()
    const [toCurrency, setToCurrency] = useState<string>()
-   const [exchangeRate, setExchangeRate] = useState<number|any>()
+   const [exchangeRate, setExchangeRate] = useState<number>()
    const [amount, setAmount] = useState<number>(1)
    const [amountInFromCurrency, setAmountInFromCurrency] = useState<boolean>(true)
  
@@ -27,15 +28,15 @@ function App() {
    }
  
    useEffect(() => {
-     fetch(BASE_URL)
-       .then(res => res.json())
-       .then(data => {
-         const firstCurrency = Object.keys(data.rates)[0]
-         setCurrencyOptions([data.base, ...Object.keys(data.rates)])
-         setFromCurrency(data.base)
-         setToCurrency(firstCurrency)
-         setExchangeRate(data.rates[firstCurrency])
-       })
+    axios.get<currency[]>('http://localhost:8000/api/rates')
+    .then(res=>{
+      const firstCurrency = Object.keys(res.data[0].rate)[0]
+      setCurrencyOptions([...Object.keys(res.data[0].rate)])
+      setFromCurrency(res.data[0].base)
+      setToCurrency(firstCurrency)
+      setExchangeRate((res.data[0].rate)[firstCurrency])
+      
+    })
    }, [])
  
    useEffect(() => {

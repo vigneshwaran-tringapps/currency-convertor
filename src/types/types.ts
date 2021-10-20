@@ -1,9 +1,9 @@
 export interface currency{
-    Base:string,
+    base:string,
     rate:ratesValue
 }
 
-interface ratesValue{
+export interface ratesValue{
     "CAD": number,
     "EUR": number,
     "GBP": number,
